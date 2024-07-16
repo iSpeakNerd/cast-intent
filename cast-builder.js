@@ -19,16 +19,11 @@ function buildCast() {
 
   const hashPattern = /^0x[a-fA-F0-9]{40}$/; // regex pattern for hash validation
   const urlPattern =
-    /(https?:\/\/)?([\w\-])+\.{1}([a-zA-Z]{2,63})([\/\w-]*)*\/?\??([^#\n\r]*)?#?([^\n\r]*)/g; // regex pattern for URL validation
-  console.log(`first embed = ${embedsInput[0]}`);
-  console.log(urlPattern.test(embedsInput[0]));
-  console.log(`second embed = ${embedsInput[1]}`);
-  console.log(urlPattern.test(embedsInput[1]));
-  console.log(
-    /(https?:\/\/)?([\w\-])+\.{1}([a-zA-Z]{2,63})([\/\w-]*)*\/?\??([^#\n\r]*)?#?([^\n\r]*)/g.test(
-      'https://events.xyz/events/31c474'
-    )
-  );
+    /(https?\:\/\/)?(([\w\-]+\.{1})?[\w\-\d]+\.{1}[\w\d]{2,63})\/(?:([\w\d\-]+))*(?:\?([\w\-\d]+\=?)([\w\-\d]*)|\?([\w\-\d])+|\#([\w\-\d])+|[\w\-\d]+|\.[\w\-\d]+|\/{1}|[\@\%\:]{1})*[\n\ \r]?/; // regex pattern for URL validation
+  // console.log(`first embed = ${embedsInput[0]}`);
+  // console.log(urlPattern.test(embedsInput[0]));
+  // console.log(`second embed = ${embedsInput[1]}`);
+  // console.log(urlPattern.test(embedsInput[1]));
 
   //   const valid = urlPattern.test(embedsInput[0]) && urlPattern.test(embedsInput[1]);
   //   console.log(valid); // check if both URLs are valid
@@ -65,8 +60,8 @@ function buildCast() {
     baseUrl +
     `?text=${cast.text}&channelKey=${cast.channel}&parentCastHash=${cast.hash}&embeds[]=${cast.embeds[0]}&embeds[]=${cast.embeds[1]}`; // build intent URL
 
-  //   console.log(cast); // check output
-  //   console.log(JSON.stringify(cast)); // check output
+  console.log(cast); // check output
+  // console.log(JSON.stringify(cast)); // check output
 
   return JSON.stringify(cast);
 }
