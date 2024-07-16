@@ -1,4 +1,4 @@
-function buildCast() {
+export default function buildCast() {
   let cast = {
     text: '',
     channel: '',
@@ -56,7 +56,7 @@ function buildCast() {
   console.log(cast); // check output
   // console.log(JSON.stringify(cast)); // check output
 
-  return JSON.stringify(cast);
+  return cast.url;
 }
 
 buildCast();
