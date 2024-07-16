@@ -1,3 +1,6 @@
+import validator from 'validator';
+const isUrl = validator.isURL;
+
 export default function buildCast() {
   let cast = {
     text: '',
@@ -18,13 +21,11 @@ export default function buildCast() {
   const hashInput = '0xfc15fd3e989e384d406668dbdd58df08b3162d3c'; // replace with user input, must be full hash
 
   const hashPattern = /^0x[a-fA-F0-9]{40}$/; // regex pattern for hash validation
-  const urlPattern =
-    /(https?\:\/\/)?(([\w\-]+\.{1})?[\w\-\d]+\.{1}[\w\d]{2,63})\/(?:([\w\d\-]+))*(?:\?([\w\-\d]+\=?)([\w\-\d]*)|\?([\w\-\d])+|\#([\w\-\d])+|[\w\-\d]+|\.[\w\-\d]+|\/{1}|[\@\%\:]{1})*[\n\ \r]?/; // regex pattern for URL validation
+  /* const urlPattern =
+    /(https?\:\/\/)?(([\w\-]+\.{1})?[\w\-\d]+\.{1}[\w\d]{2,63})\/(?:([\w\d\-]+))*(?:\?([\w\-\d]+\=?)([\w\-\d]*)|\?([\w\-\d])+|\#([\w\-\d])+|[\w\-\d]+|\.[\w\-\d]+|\/{1}|[\@\%\:]{1})*[\n\ \r]?/; // regex pattern for URL validation */
 
   const isValidEmbeds =
-    urlPattern.test(embedsInput[0]) && urlPattern.test(embedsInput[1])
-      ? true
-      : false;
+    isUrl(embedsInput[0]) && isUrl(embedsInput[1]) ? true : false;
   if (!isValidEmbeds) {
     console.error('Error: Invalid URLs for embeds');
     return null;
@@ -49,14 +50,15 @@ export default function buildCast() {
     return null;
   }
 
-  cast.url =
+  cast.url = new URL(
     baseUrl +
-    `?text=${cast.text}&channelKey=${cast.channel}&parentCastHash=${cast.hash}&embeds[]=${cast.embeds[0]}&embeds[]=${cast.embeds[1]}`; // build intent URL
+      `?text=${cast.text}&channelKey=${cast.channel}&parentCastHash=${cast.hash}&embeds[]=${cast.embeds[0]}&embeds[]=${cast.embeds[1]}`
+  ); // build intent URL
 
-  console.log(cast); // check output
+  console.log(cast.url.href); // check output
   // console.log(JSON.stringify(cast)); // check output
 
-  return cast.url;
+  return cast.url.href;
 }
 
 buildCast();
