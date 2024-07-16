@@ -19,11 +19,16 @@ function buildCast() {
 
   const hashPattern = /^0x[a-fA-F0-9]{40}$/; // regex pattern for hash validation
   const urlPattern =
-    /^(?:(?:https|http)\:\/\/|)(?:\w+|\.|\/|\-|\@|\?|\=|\#|\:|\%)+$/g; // regex pattern for URL validation
+    /(https?:\/\/)?([\w\-])+\.{1}([a-zA-Z]{2,63})([\/\w-]*)*\/?\??([^#\n\r]*)?#?([^\n\r]*)/g; // regex pattern for URL validation
   console.log(`first embed = ${embedsInput[0]}`);
   console.log(urlPattern.test(embedsInput[0]));
   console.log(`second embed = ${embedsInput[1]}`);
   console.log(urlPattern.test(embedsInput[1]));
+  console.log(
+    /(https?:\/\/)?([\w\-])+\.{1}([a-zA-Z]{2,63})([\/\w-]*)*\/?\??([^#\n\r]*)?#?([^\n\r]*)/g.test(
+      'https://events.xyz/events/31c474'
+    )
+  );
 
   //   const valid = urlPattern.test(embedsInput[0]) && urlPattern.test(embedsInput[1]);
   //   console.log(valid); // check if both URLs are valid
