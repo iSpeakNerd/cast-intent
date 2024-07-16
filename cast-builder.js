@@ -19,7 +19,7 @@ function buildCast() {
 
   const hashPattern = /^0x[a-fA-F0-9]{40}$/; // regex pattern for hash validation
   const urlPattern =
-    /(?:(?:https|http|www)\:\/\/|)(?:\w+|\.|\/|\-|\@|\?|\=|\#|\:|\%)+/g; // regex pattern for URL validation
+    /^(?:(?:https|http)\:\/\/|)(?:\w+|\.|\/|\-|\@|\?|\=|\#|\:|\%)+$/g; // regex pattern for URL validation
   console.log(`first embed = ${embedsInput[0]}`);
   console.log(urlPattern.test(embedsInput[0]));
   console.log(`second embed = ${embedsInput[1]}`);
