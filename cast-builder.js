@@ -20,13 +20,6 @@ function buildCast() {
   const hashPattern = /^0x[a-fA-F0-9]{40}$/; // regex pattern for hash validation
   const urlPattern =
     /(https?\:\/\/)?(([\w\-]+\.{1})?[\w\-\d]+\.{1}[\w\d]{2,63})\/(?:([\w\d\-]+))*(?:\?([\w\-\d]+\=?)([\w\-\d]*)|\?([\w\-\d])+|\#([\w\-\d])+|[\w\-\d]+|\.[\w\-\d]+|\/{1}|[\@\%\:]{1})*[\n\ \r]?/; // regex pattern for URL validation
-  // console.log(`first embed = ${embedsInput[0]}`);
-  // console.log(urlPattern.test(embedsInput[0]));
-  // console.log(`second embed = ${embedsInput[1]}`);
-  // console.log(urlPattern.test(embedsInput[1]));
-
-  //   const valid = urlPattern.test(embedsInput[0]) && urlPattern.test(embedsInput[1]);
-  //   console.log(valid); // check if both URLs are valid
 
   const isValidEmbeds =
     urlPattern.test(embedsInput[0]) && urlPattern.test(embedsInput[1])
