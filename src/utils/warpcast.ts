@@ -37,12 +37,17 @@ export class WarpcastUrlBuilder {
       if (options.embeds?.length > 2) {
         throw new Error('Warpcast does not support more than 2 embeds');
       }
-      const isValidEmbeds =
-        isUrl(options.embeds?.[0]) && isUrl(options.embeds?.[1]) ? true : false;
-      if (!isValidEmbeds) {
-        throw new Error('Embed strings must be valid URLs');
-      }
-      options.embeds.forEach((embed) => params.append('embeds[]', embed));
+      options.embeds.forEach((embed) => {
+        if (
+          !isUrl(embed, {
+            require_protocol: true,
+            protocols: ['http', 'https'],
+          })
+        ) {
+          throw new Error('Embed strings must be valid URLs');
+        }
+        return params.append('embeds[]', embed);
+      });
     }
 
     if (options.channelKey) {
