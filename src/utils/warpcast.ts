@@ -89,24 +89,3 @@ export class WarpcastUrlBuilder {
     return `https://warpcast.com/~/conversations/${hash}`;
   }
 }
-
-//debug
-(() => {
-  const url = WarpcastUrlBuilder.composerUrl({
-    text: 'Hello World!',
-    embeds: [
-      'https://events.xyz/events/2223b818',
-      'https://docs.farcaster.xyz/reference/warpcast/cast-composer-intents',
-    ],
-    parentCastHash: '',
-    channelKey: 'testinprod',
-  });
-  console.log('composer url test:', url);
-  console.log('profile url test:', WarpcastUrlBuilder.profileUrl(9391));
-  console.log(
-    'cast url test:',
-    WarpcastUrlBuilder.castUrlByHash(
-      '0x6c48f6fa5060edf19af7ec9fad5028b0ba2e7a3c'
-    )
-  );
-})();
