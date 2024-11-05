@@ -31,29 +31,24 @@ export class WarpcastUrlBuilder {
   static composerUrl(options: WarpcastComposeOptions): string {
     const params = new URLSearchParams();
 
-    // Add required text parameter
     params.append('text', encodeURIComponent(options.text));
 
-    // Add optional embeds
     if (options.embeds?.length) {
-      if (options.embeds?.length && options.embeds?.length > 2) {
+      if (options.embeds?.length > 2) {
         throw new Error('Warpcast does not support more than 2 embeds');
       }
       const isValidEmbeds =
         isUrl(options.embeds?.[0]) && isUrl(options.embeds?.[1]) ? true : false;
       if (!isValidEmbeds) {
-        console.error('Error: Invalid URLs for embeds');
         throw new Error('Embed strings must be valid URLs');
       }
       options.embeds.forEach((embed) => params.append('embeds[]', embed));
     }
 
-    // Add optional channel
     if (options.channelKey) {
       params.append('channelKey', options.channelKey);
     }
 
-    // Add optional parent cast hash for replies
     if (options.parentCastHash) {
       if (!hashPattern.test(options.parentCastHash)) {
         throw new Error('Invalid parent cast hash');
