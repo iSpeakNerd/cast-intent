@@ -10,19 +10,18 @@ interface WarpcastComposeOptions {
 
 const hashPattern = /^0x[a-fA-F0-9]{40}$/; // regex pattern for hash validation
 
-
- /**
-   * Methods to generate a Warpcast composer URL with the given options,
-   * docs at https://docs.farcaster.xyz/reference/warpcast/cast-composer-intents
-   * 
-   */
+/**
+ * Methods to generate a Warpcast composer URL with the given options,
+ * docs at https://docs.farcaster.xyz/reference/warpcast/cast-composer-intents
+ *
+ */
 export class WarpcastUrlBuilder {
   private static readonly COMPOSER_BASE_URL = 'https://warpcast.com/~/compose';
 
   /**
-   * @param options.text - The text of the post
+   * @param options.text - The text of the cast
    *
-   * @param options.embeds - The embeds to include in the post (max 2)
+   * @param options.embeds - The embeds to include in the cast (max 2), must be valid URLs
    *
    * @param options.parentCastHash - The parent cast hash for replies,
    * `/^0x[a-fA-F0-9]{40}$/`,
@@ -35,7 +34,7 @@ export class WarpcastUrlBuilder {
   static composerUrl(options: WarpcastComposeOptions): string {
     const params = new URLSearchParams();
 
-    params.append('text', encodeURIComponent(options.text));
+    params.append('text', options.text);
 
     if (options.embeds?.length) {
       if (options.embeds?.length > 2) {
